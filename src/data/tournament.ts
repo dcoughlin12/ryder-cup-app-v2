@@ -6,7 +6,7 @@ const data: TournamentData = {
     name: "Ryder Cup 2026",
     dates: "May 30–31, 2026",
     status: "upcoming",
-    note: "Reminder - bring cash for closest to the pin. $5 oer round.",
+    note: "Reminder - bring cash for closest to the pin. $5 per round.",
   },
   teams: {
     east: {
