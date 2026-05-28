@@ -7,10 +7,9 @@ import type { TeamScore } from "../types";
 
 interface Props {
   score: TeamScore;
-  status: string;
 }
 
-export default function ScoreHero({ score, status }: Props) {
+export default function ScoreHero({ score }: Props) {
   const total = score.east + score.west;
   const eastPct = total > 0 ? (score.east / TOTAL_POINTS_AVAILABLE) * 100 : 50;
   const westPct = total > 0 ? (score.west / TOTAL_POINTS_AVAILABLE) * 100 : 50;
@@ -19,13 +18,6 @@ export default function ScoreHero({ score, status }: Props) {
   const westLeads = score.west > score.east;
   const eastWon = score.east >= POINTS_TO_WIN;
   const westWon = score.west >= POINTS_TO_WIN;
-
-  const statusLabel =
-    status === "upcoming"
-      ? "Tournament Upcoming"
-      : status === "in_progress"
-        ? "In Progress"
-        : "Final Score";
 
   return (
     <section className="bg-navy-900 border-b border-gold/20">
