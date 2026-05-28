@@ -1,4 +1,4 @@
-export type MatchResult = 'east' | 'west' | 'halved' | null;
+export type MatchResult = "east" | "west" | "halved" | null;
 
 export interface AltShotBestBallMatch {
   id: string;
@@ -36,7 +36,7 @@ export interface Round {
   date: string;
   startTime: string;
   course: string;
-  format: 'alt_shot_best_ball' | 'scramble' | 'individual';
+  format: "alt_shot_best_ball" | "scramble" | "individual";
   pointsNote: string;
   address?: string;
   mapsUrl?: string;
@@ -74,7 +74,8 @@ export interface TournamentData {
   tournament: {
     name: string;
     dates: string;
-    status: 'upcoming' | 'in_progress' | 'complete';
+    status?: "upcoming" | "in_progress" | "complete";
+    note?: string;
   };
   teams: Teams;
   rounds: Round[];
@@ -94,7 +95,7 @@ export interface MatchSubResult {
 export interface PlayerMatchEntry {
   roundNumber: number;
   roundName: string;
-  format: Round['format'];
+  format: Round["format"];
   partners: string[];
   opponents: string[];
   subResults: MatchSubResult[];
@@ -102,14 +103,14 @@ export interface PlayerMatchEntry {
 
 export interface PlayerCardData {
   name: string;
-  team: 'east' | 'west';
+  team: "east" | "west";
   points: number;
   matches: PlayerMatchEntry[];
 }
 
 export interface PlayerStat {
   name: string;
-  team: 'east' | 'west';
+  team: "east" | "west";
   points: number;
   played: number;
 }

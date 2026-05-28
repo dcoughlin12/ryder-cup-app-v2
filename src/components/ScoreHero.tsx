@@ -125,7 +125,7 @@ export default function ScoreHero({ score, status }: Props) {
             <span className="text-slate-600">
               of {TOTAL_POINTS_AVAILABLE} available
             </span>
-            <span>{formatPts(score.west)} pts West</span>
+            <span>West {formatPts(score.west)} pts</span>
           </div>
         </div>
       </div>

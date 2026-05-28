@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useScrollLock } from '../utils/useScrollLock';
+import { useScrollLock } from "../utils/useScrollLock";
 import {
   Trophy,
   CalendarDays,
@@ -11,6 +11,7 @@ import {
   Bus,
   BookOpen,
   Target,
+  Info,
 } from "lucide-react";
 import type { TournamentData } from "../types";
 
@@ -40,7 +41,7 @@ function ItineraryModal({
 
       {/* Sheet / Modal */}
       <div
-        className="relative z-10 w-full sm:max-w-lg bg-slate-900 rounded-t-2xl sm:rounded-2xl border border-slate-700/60 overflow-hidden max-h-[90vh] flex flex-col"
+        className="relative z-10 w-full sm:max-w-lg bg-slate-900 rounded-t-2xl sm:rounded-2xl border border-slate-700/60 overflow-hidden max-h-[95dvh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -284,7 +285,7 @@ function RulesModal({ onClose }: { onClose: () => void }) {
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       <div
-        className="relative z-10 w-full sm:max-w-lg bg-slate-900 rounded-t-2xl sm:rounded-2xl border border-slate-700/60 overflow-hidden max-h-[90vh] flex flex-col"
+        className="relative z-10 w-full sm:max-w-lg bg-slate-900 rounded-t-2xl sm:rounded-2xl border border-slate-700/60 overflow-hidden max-h-[95dvh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -502,6 +503,12 @@ export default function Header({ data }: { data: TournamentData }) {
               <ChevronRight size={14} className="opacity-60" />
             </button>
           </div>
+          {data.tournament.note && (
+            <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-white/10 text-white/50 text-xs">
+              <Info size={11} className="shrink-0" />
+              <span>{data.tournament.note}</span>
+            </div>
+          )}
         </div>
       </header>
 
