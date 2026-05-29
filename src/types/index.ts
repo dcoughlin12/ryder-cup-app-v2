@@ -75,6 +75,7 @@ export interface TournamentData {
     name: string;
     dates: string;
     status?: "upcoming" | "in_progress" | "complete";
+    currentRound?: number;
     note?: string;
   };
   teams: Teams;

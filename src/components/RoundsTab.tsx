@@ -70,7 +70,7 @@ export default function RoundsTab({ data }: { data: TournamentData }) {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6 space-y-4">
       {data.rounds.map((round, i) => (
-        <RoundSection key={round.id} round={round} defaultOpen={i === 0} />
+        <RoundSection key={round.id} round={round} defaultOpen={i === (data.tournament.currentRound ?? 1) - 1} />
       ))}
     </div>
   );
