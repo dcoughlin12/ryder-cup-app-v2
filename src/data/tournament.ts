@@ -102,7 +102,7 @@ const data: TournamentData = {
           teeTime: "9:30",
           east: [east.glashan, east.tindal],
           west: [west.dacosta, west.hulton],
-          altShot: { result: null },
+          altShot: { result: "halved" },
           bestBall: { result: null },
         },
         {
