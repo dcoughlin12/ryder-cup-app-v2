@@ -78,7 +78,7 @@ const data: TournamentData = {
           teeTime: "9:00",
           east: [east.darryl, east.brandon],
           west: [west.reese, west.jackson],
-          altShot: { result: null },
+          altShot: { result: "west" },
           bestBall: { result: "west" },
         },
         {
