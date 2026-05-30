@@ -111,7 +111,7 @@ const data: TournamentData = {
           east: [east.justin, east.josh],
           west: [west.walsh, west.mosier],
           altShot: { result: "west" },
-          bestBall: { result: null },
+          bestBall: { result: "west" },
         },
       ],
     },
