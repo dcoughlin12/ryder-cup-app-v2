@@ -103,7 +103,7 @@ const data: TournamentData = {
           east: [east.glashan, east.tindal],
           west: [west.dacosta, west.hulton],
           altShot: { result: "halved" },
-          bestBall: { result: null },
+          bestBall: { result: "halved" },
         },
         {
           id: "r1m5",
