@@ -87,7 +87,7 @@ const data: TournamentData = {
           east: [east.travis, east.coach],
           west: [west.miller, west.trav],
           altShot: { result: "west" },
-          bestBall: { result: null },
+          bestBall: { result: "east" },
         },
         {
           id: "r1m3",
