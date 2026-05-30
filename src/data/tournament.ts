@@ -136,7 +136,7 @@ const data: TournamentData = {
         {
           id: "r2m1",
           teeTime: "4:00",
-          east: [east.devin, east.darryl],
+          east: [east.coach, east.darryl],
           west: [west.miller, west.reese],
           front9: { result: null },
           back9: { result: null },
@@ -172,7 +172,7 @@ const data: TournamentData = {
         {
           id: "r2m5",
           teeTime: "4:40",
-          east: [east.brandon, east.coach],
+          east: [east.brandon, east.devin],
           west: [west.brently, west.walsh],
           front9: { result: null },
           back9: { result: null },
