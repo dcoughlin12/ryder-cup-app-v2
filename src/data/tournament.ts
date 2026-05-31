@@ -209,7 +209,7 @@ const data: TournamentData = {
           teeTime: "9:10",
           east: east.travis,
           west: west.trav,
-          result: "west",
+          result: "east",
         },
         { id: "r3m3", teeTime: "9:20", east: null, west: null, result: null },
         { id: "r3m4", teeTime: "9:30", east: null, west: null, result: null },
