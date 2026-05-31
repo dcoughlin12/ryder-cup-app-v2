@@ -203,7 +203,7 @@ const data: TournamentData = {
           id: "r3m1",
           teeTime: "9:00",
           east: east.travis,
-          west: west.moiser,
+          west: west.mosier,
           result: null,
         },
         {
