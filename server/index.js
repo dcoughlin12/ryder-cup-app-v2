@@ -7,12 +7,8 @@ const http = require('http');
 const path = require('path');
 
 const PORT = process.env.PORT || 3001;
-const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',').map((o) => o.trim())
-  : ['http://localhost:5173'];
-
 const app = express();
-app.use(cors({ origin: ALLOWED_ORIGINS }));
+app.use(cors());
 app.use(express.json());
 
 // SQLite
