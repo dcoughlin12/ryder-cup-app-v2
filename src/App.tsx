@@ -6,6 +6,7 @@ import ScoreHero from './components/ScoreHero';
 import TabNav from './components/TabNav';
 import RoundsTab from './components/RoundsTab';
 import StatsTab from './components/StatsTab';
+import Chat from './components/Chat';
 
 export default function App() {
   const [tab, setTab] = useState<'rounds' | 'stats'>('rounds');
@@ -24,6 +25,7 @@ export default function App() {
       <footer className="max-w-3xl mx-auto px-4 py-8 text-center text-slate-700 text-xs">
         {data.tournament.name} · {data.tournament.dates}
       </footer>
+      <Chat />
     </div>
   );
 }
