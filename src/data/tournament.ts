@@ -6,7 +6,7 @@ const data: TournamentData = {
     name: "Ryder Cup 2026",
     dates: "May 30–31, 2026",
     status: "upcoming",
-    currentRound: 2,
+    currentRound: 3,
     note: "Reminder - bring cash for closest to the pin. $5 per round.",
   },
   teams: {
@@ -210,7 +210,7 @@ const data: TournamentData = {
           id: "r3m2",
           teeTime: "9:10",
           east: east.graeme,
-          west: west.brent,
+          west: west.brently,
           result: null,
         },
         { id: "r3m3", teeTime: "9:20", east: east.glashan, west: west.reese, result: null },
