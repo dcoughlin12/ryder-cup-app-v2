@@ -50,11 +50,10 @@ export default function Chat() {
   const openRef = useRef(open);
   useEffect(() => { openRef.current = open; }, [open]);
 
-  // WebSocket — reconnects automatically on close
+  // WebSocket
   const connectWS = useCallback(() => {
     const ws = new WebSocket(WS_URL);
     wsRef.current = ws;
-
     ws.onmessage = (e) => {
       try {
         const msg = JSON.parse(e.data);
@@ -69,7 +68,6 @@ export default function Chat() {
         }
       } catch {}
     };
-
     ws.onclose = () => setTimeout(connectWS, 3000);
   }, []);
 
@@ -78,7 +76,7 @@ export default function Chat() {
     return () => wsRef.current?.close();
   }, [connectWS]);
 
-  // Fetch history when a name is selected
+  // Fetch history when name selected
   useEffect(() => {
     if (!selectedName) return;
     fetch(`${API_URL}/messages`)
@@ -91,19 +89,22 @@ export default function Chat() {
       .catch(console.error);
   }, [selectedName]);
 
-  // Scroll to bottom when new messages arrive (while open)
+  // Scroll to bottom + mark read when opening
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 50);
+      if (messages.length > 0) {
+        const maxId = Math.max(...messages.map((m) => m.id));
+        localStorage.setItem(LS_LAST_SEEN, String(maxId));
+        setUnread(0);
+      }
+    }
+  }, [open]);
+
+  // Scroll when new messages arrive while open
   useEffect(() => {
     if (open) messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, open]);
-
-  // Mark all as read when panel is opened
-  useEffect(() => {
-    if (open && messages.length > 0) {
-      const maxId = Math.max(...messages.map((m) => m.id));
-      localStorage.setItem(LS_LAST_SEEN, String(maxId));
-      setUnread(0);
-    }
-  }, [open, messages]);
+  }, [messages.length]);
 
   const selectPlayer = (name: string, team: 'east' | 'west') => {
     setSelectedName(name);
@@ -152,10 +153,10 @@ export default function Chat() {
 
   return (
     <>
-      {/* Floating button */}
+      {/* Floating bubble */}
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-5 right-5 z-40 w-14 h-14 bg-gold rounded-full shadow-xl flex items-center justify-center hover:bg-gold/90 active:scale-95 transition-all"
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-gold rounded-full shadow-xl flex items-center justify-center hover:bg-gold/90 active:scale-95 transition-all"
       >
         <MessageCircle size={22} strokeWidth={2} className="text-navy-900" />
         {unread > 0 && (
@@ -165,19 +166,14 @@ export default function Chat() {
         )}
       </button>
 
-      {/* Backdrop */}
+      {/* Full-screen modal */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/50"
-          onClick={() => setOpen(false)}
-        />
-      )}
-
-      {/* Slide-in panel */}
-      {open && (
-        <div className="fixed right-0 top-0 h-full z-50 w-full sm:w-96 bg-slate-900 border-l border-slate-700/60 flex flex-col shadow-2xl">
+          className="fixed inset-x-0 top-0 z-50 flex flex-col bg-slate-900"
+          style={{ height: '100dvh' }}
+        >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-700/40 shrink-0">
+          <div className="flex items-center justify-between px-4 py-4 border-b border-slate-700/40 shrink-0">
             <div className="flex items-center gap-2.5">
               <MessageCircle size={17} className="text-gold" />
               <div>
@@ -185,47 +181,40 @@ export default function Chat() {
                   Ryder Cup Chat
                 </h2>
                 {selectedName && selectedTeam && (
-                  <p className={`text-xs mt-0.5 ${selectedTeam === 'east' ? 'text-east-light' : 'text-west-light'}`}>
+                  <p className={`text-xs mt-0.5 flex items-center gap-1.5 ${selectedTeam === 'east' ? 'text-east-light' : 'text-west-light'}`}>
                     Chatting as {selectedName}
+                    <button onClick={clearPlayer} className="text-slate-500 hover:text-slate-300 transition-colors leading-none">
+                      <X size={11} />
+                    </button>
                   </p>
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              {selectedName && (
-                <button
-                  onClick={clearPlayer}
-                  className="text-slate-500 hover:text-slate-300 text-xs transition-colors"
-                >
-                  Switch
-                </button>
-              )}
-              <button
-                onClick={() => setOpen(false)}
-                className="text-slate-400 hover:text-white transition-colors p-1"
-              >
-                <X size={18} />
-              </button>
-            </div>
+            <button
+              onClick={() => setOpen(false)}
+              className="text-slate-400 hover:text-white transition-colors p-2 -mr-1"
+            >
+              <X size={22} />
+            </button>
           </div>
 
           {!selectedName ? (
-            /* ── Name picker ── */
-            <div className="flex-1 overflow-y-auto px-4 py-5">
-              <p className="text-slate-300 text-sm font-semibold text-center mb-5">
+            /* Name picker */
+            <div className="flex-1 overflow-y-auto min-h-0 px-4 py-6">
+              <p className="text-slate-300 text-sm font-semibold text-center mb-6">
                 Who are you?
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
                 <div>
-                  <p className="text-east-light text-xs font-semibold uppercase tracking-widest mb-2.5">
+                  <p className="text-east-light text-xs font-semibold uppercase tracking-widest mb-3">
                     Team East
                   </p>
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     {EAST_PLAYERS.map((p) => (
                       <button
                         key={p.name}
                         onClick={() => selectPlayer(p.name, p.team)}
-                        className="w-full text-left px-3 py-2 bg-east/10 hover:bg-east/25 border border-east/20 hover:border-east/50 rounded-lg text-white text-sm font-medium transition-colors"
+                        className="w-full text-left px-3 py-2.5 bg-east/10 hover:bg-east/25 active:bg-east/30 border border-east/20 hover:border-east/50 rounded-xl text-white text-sm font-medium transition-colors"
                       >
                         {p.name}
                       </button>
@@ -233,15 +222,15 @@ export default function Chat() {
                   </div>
                 </div>
                 <div>
-                  <p className="text-west-light text-xs font-semibold uppercase tracking-widest mb-2.5">
+                  <p className="text-west-light text-xs font-semibold uppercase tracking-widest mb-3">
                     Team West
                   </p>
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     {WEST_PLAYERS.map((p) => (
                       <button
                         key={p.name}
                         onClick={() => selectPlayer(p.name, p.team)}
-                        className="w-full text-left px-3 py-2 bg-west/10 hover:bg-west/25 border border-west/20 hover:border-west/50 rounded-lg text-white text-sm font-medium transition-colors"
+                        className="w-full text-left px-3 py-2.5 bg-west/10 hover:bg-west/25 active:bg-west/30 border border-west/20 hover:border-west/50 rounded-xl text-white text-sm font-medium transition-colors"
                       >
                         {p.name}
                       </button>
@@ -252,8 +241,8 @@ export default function Chat() {
             </div>
           ) : (
             <>
-              {/* ── Messages ── */}
-              <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+              {/* Messages */}
+              <div className="flex-1 overflow-y-auto min-h-0 px-4 py-3 space-y-3">
                 {messages.length === 0 && (
                   <p className="text-slate-600 text-sm text-center mt-10 italic">
                     No messages yet. Say something!
@@ -267,15 +256,13 @@ export default function Chat() {
                       className={`flex flex-col gap-0.5 group ${isOwn ? 'items-end' : 'items-start'}`}
                     >
                       {!isOwn && (
-                        <span
-                          className={`text-xs font-semibold px-1 ${msg.team === 'east' ? 'text-east-light' : 'text-west-light'}`}
-                        >
+                        <span className={`text-xs font-semibold px-1 ${msg.team === 'east' ? 'text-east-light' : 'text-west-light'}`}>
                           {msg.name}
                         </span>
                       )}
                       <div className={`flex items-end gap-1.5 ${isOwn ? 'flex-row-reverse' : ''}`}>
                         <p
-                          className={`max-w-[220px] px-3 py-2 rounded-2xl text-sm leading-relaxed break-words ${
+                          className={`max-w-[72vw] px-3 py-2 rounded-2xl text-sm leading-relaxed break-words ${
                             isOwn
                               ? msg.team === 'east'
                                 ? 'bg-east text-white rounded-br-sm'
@@ -294,17 +281,15 @@ export default function Chat() {
                           </button>
                         )}
                       </div>
-                      <span className="text-slate-600 text-xs px-1">
-                        {formatTime(msg.timestamp)}
-                      </span>
+                      <span className="text-slate-600 text-xs px-1">{formatTime(msg.timestamp)}</span>
                     </div>
                   );
                 })}
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* ── Input ── */}
-              <div className="px-4 py-3 border-t border-slate-700/40 shrink-0">
+              {/* Input — font-size 16px prevents iOS zoom */}
+              <div className="shrink-0 px-4 py-3 border-t border-slate-800 bg-slate-950">
                 <div className="flex items-end gap-2">
                   <textarea
                     value={input}
@@ -317,15 +302,15 @@ export default function Chat() {
                     }}
                     placeholder={`Message as ${selectedName}…`}
                     rows={1}
-                    className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 resize-none focus:outline-none focus:border-gold/50 leading-snug"
-                    style={{ maxHeight: 100 }}
+                    style={{ fontSize: 16, maxHeight: 120 }}
+                    className="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white placeholder-slate-500 resize-none focus:outline-none focus:border-gold/50 leading-snug"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={!input.trim() || sending}
-                    className="bg-gold hover:bg-gold/90 disabled:opacity-40 text-navy-900 rounded-xl p-2.5 transition-all shrink-0"
+                    className="bg-gold hover:bg-gold/90 disabled:opacity-40 text-navy-900 rounded-2xl p-3 transition-all shrink-0"
                   >
-                    <Send size={15} />
+                    <Send size={16} />
                   </button>
                 </div>
               </div>

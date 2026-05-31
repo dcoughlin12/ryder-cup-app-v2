@@ -187,11 +187,11 @@ const data: TournamentData = {
     // -------------------------------------------------------------------------
     {
       id: "round3",
-      name: "Loch March — 18 Holes",
+      name: "Loch March",
       subtitle: "Individual Match Play",
       date: "Sunday, May 31",
       startTime: "9:00 AM",
-      course: "Loch March Golf & Country Club",
+      course: "Loch March Golf Club",
       format: "individual",
       pointsNote: "Win: 2 pts  |  Halved: 1 pt each",
       mapsEmbed:
