@@ -216,7 +216,7 @@ const data: TournamentData = {
         { id: "r3m3", teeTime: "9:20", east: east.glashan, west: west.reese, result: "east" },
         { id: "r3m4", teeTime: "9:30", east: east.justin, west: west.dacosta, result: "west" },
         { id: "r3m5", teeTime: "9:40", east: east.brandon, west: west.jackson, result: "west" },
-        { id: "r3m6", teeTime: "9:50", east: east.darryl, west: west.miller, result: null },
+        { id: "r3m6", teeTime: "9:50", east: east.darryl, west: west.miller, result: "west" },
         { id: "r3m7", teeTime: "10:00", east: east.devin, west: west.walsh, result: "east" },
         { id: "r3m8", teeTime: "10:10", east: east.josh, west: west.trav, result: "east" },
         { id: "r3m9", teeTime: "10:20", east: east.coach, west: west.purves, result: "west" },
