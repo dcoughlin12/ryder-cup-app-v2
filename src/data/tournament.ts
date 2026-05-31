@@ -136,7 +136,7 @@ const data: TournamentData = {
         {
           id: "r2m1",
           teeTime: "4:00",
-          east: [east.coach, east.darryl],
+          east: [east.glashan, east.travis],
           west: [west.miller, west.reese],
           front9: { result: null },
           back9: { result: null },
@@ -145,8 +145,8 @@ const data: TournamentData = {
         {
           id: "r2m2",
           teeTime: "4:10",
-          east: [east.travis, east.graeme],
-          west: [west.dacosta, west.jackson],
+          east: [east.brandon, east.graeme],
+          west: [west.hulton, west.purves],
           front9: { result: null },
           back9: { result: null },
           overall: { result: null },
@@ -154,8 +154,8 @@ const data: TournamentData = {
         {
           id: "r2m3",
           teeTime: "4:20",
-          east: [east.glashan, east.justin],
-          west: [west.hulton, west.purves],
+          east: [east.devin, east.justin],
+          west: [west.jackson, west.dacosta],
           front9: { result: null },
           back9: { result: null },
           overall: { result: null },
@@ -172,7 +172,7 @@ const data: TournamentData = {
         {
           id: "r2m5",
           teeTime: "4:40",
-          east: [east.brandon, east.devin],
+          east: [east.darryl, east.coach],
           west: [west.brently, west.walsh],
           front9: { result: null },
           back9: { result: null },
