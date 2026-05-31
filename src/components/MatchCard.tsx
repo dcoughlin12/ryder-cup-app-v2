@@ -39,12 +39,12 @@ function AltShotCard({ match }: { match: AltShotBestBallMatch }) {
         </div>
       </div>
       <div className="border-t border-slate-700/40 grid grid-cols-2 divide-x divide-slate-700/40">
-        <div className="px-3 py-2 flex items-center justify-between gap-2">
-          <span className="text-slate-400 text-xs shrink-0">Alt Shot</span>
+        <div className="px-3 py-2 flex flex-col gap-1">
+          <span className="text-slate-400 text-xs">Alt Shot</span>
           <ResultPill result={match.altShot.result} winPts={1} />
         </div>
-        <div className="px-3 py-2 flex items-center justify-between gap-2">
-          <span className="text-slate-400 text-xs shrink-0">Best Ball</span>
+        <div className="px-3 py-2 flex flex-col gap-1">
+          <span className="text-slate-400 text-xs">Best Ball</span>
           <ResultPill result={match.bestBall.result} winPts={1} />
         </div>
       </div>
@@ -82,7 +82,7 @@ function ScrambleCard({ match }: { match: ScrambleMatch }) {
           </p>
         </div>
       </div>
-      <div className="border-t border-slate-700/40 grid grid-cols-3 divide-x divide-slate-700/40">
+      <div className="border-t border-slate-700/40 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-700/40">
         <div className="px-2 py-2 flex items-center justify-between gap-1">
           <span className="text-slate-400 text-xs shrink-0">Front 9</span>
           <ResultPill result={match.front9.result} winPts={0.5} />
