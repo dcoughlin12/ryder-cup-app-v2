@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useScrollLock } from '../utils/useScrollLock';
 import {
   Trophy,
   CalendarDays,
@@ -460,6 +461,7 @@ function RulesModal({ onClose }: { onClose: () => void }) {
 export default function Header({ data }: { data: TournamentData }) {
   const [showItinerary, setShowItinerary] = useState(false);
   const [showRules, setShowRules] = useState(false);
+  useScrollLock(showItinerary || showRules);
 
   return (
     <>

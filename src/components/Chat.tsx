@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { MessageCircle, X, Send, Trash2 } from 'lucide-react';
 import { east, west } from '../data/players';
+import { useScrollLock } from '../utils/useScrollLock';
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001/api';
 const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:3001';
@@ -34,6 +35,7 @@ function formatTime(ts: number): string {
 
 export default function Chat() {
   const [open, setOpen] = useState(false);
+  useScrollLock(open);
   const [selectedName, setSelectedName] = useState<string | null>(
     () => localStorage.getItem(LS_NAME),
   );
