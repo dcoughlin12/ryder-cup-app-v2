@@ -9,6 +9,7 @@ import {
   Navigation,
   Bus,
   BookOpen,
+  Target,
 } from "lucide-react";
 import type { TournamentData } from "../types";
 
@@ -321,6 +322,57 @@ function RulesModal({ onClose }: { onClose: () => void }) {
               <span className="text-west-light font-semibold">20.5 pts</span> to
               take it.
             </p>
+          </div>
+
+          {/* Closest to the Pin */}
+          <div className="bg-slate-800/60 rounded-xl border border-slate-700/40 overflow-hidden">
+            <div className="px-4 py-3 border-b border-slate-700/30 flex items-center gap-2">
+              <Target size={15} className="text-gold shrink-0" />
+              <p className="text-white font-semibold text-sm">
+                Closest to the Pin
+              </p>
+            </div>
+            <div className="px-4 py-3 space-y-3">
+              <p className="text-slate-300 text-xs leading-relaxed">
+                Optional{" "}
+                <span className="text-white font-semibold">$5 cash</span> buy-in
+                per round. Pay before your tee time to be eligible. Winner takes
+                the pot for that round.
+              </p>
+              <div className="space-y-2">
+                {[
+                  { round: "Round 1", course: "Gatineau", hole: "Hole 15" },
+                  { round: "Round 2", course: "Le Sorcier", hole: "Hole 9" },
+                  { round: "Round 3", course: "Loch March", hole: "Hole 16" },
+                ].map((row) => (
+                  <div
+                    key={row.round}
+                    className="flex items-center justify-between"
+                  >
+                    <div>
+                      <span className="text-slate-300 text-xs font-medium">
+                        {row.round}
+                      </span>
+                      <span className="text-slate-500 text-xs">
+                        {" "}
+                        · {row.course}
+                      </span>
+                    </div>
+                    <span className="text-gold text-xs font-semibold">
+                      {row.hole}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-lg px-3 py-2 mt-1">
+                <span className="text-amber-400 text-xs font-semibold">
+                  Bring cash!
+                </span>
+                <span className="text-slate-400 text-xs">
+                  Payment must be made before the round starts.
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Rounds */}
